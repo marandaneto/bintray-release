@@ -60,7 +60,7 @@ class ReleasePlugin implements Plugin<Project> {
             publication.version = version
 
             publication.pom { MavenPom pom ->
-                if (extension.licences != null && extension.licenceUrls != null) {
+                if (extension.licences != null && extension.licences.length >= 1 && extension.licenceUrls != null && extension.licenceUrls.length >= 1 ) {
                     pom.licenses { MavenPomLicenseSpec pomLicenseSpec ->
                         // take only the 1st for now
                         pomLicenseSpec.license { MavenPomLicense pomLicense ->
@@ -70,7 +70,7 @@ class ReleasePlugin implements Plugin<Project> {
                     }
                 }
 
-                if (extension.devId != null && extension.devName != null && extension.devEmail != null) {
+                if (!extension.devId.isEmpty() && !extension.devName.isEmpty() && !extension.devEmail.isEmpty()) {
                     pom.developers { MavenPomDeveloperSpec pomDeveloperSpec ->
                         // take only 1 for now
                         pomDeveloperSpec.developer { MavenPomDeveloper pomDeveloper ->
@@ -81,7 +81,7 @@ class ReleasePlugin implements Plugin<Project> {
                     }
                 }
 
-                if (extension.scmUrl != null && extension.scmConnection != null && extension.scmDevConnection != null) {
+                if (!extension.scmUrl.isEmpty() && !extension.scmConnection.isEmpty() && !extension.scmDevConnection.isEmpty()) {
                     pom.scm { MavenPomScm pomScm ->
                         pomScm.connection.set(extension.scmConnection)
                         pomScm.developerConnection.set(extension.scmDevConnection)
