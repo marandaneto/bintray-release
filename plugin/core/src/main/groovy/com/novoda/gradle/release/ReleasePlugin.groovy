@@ -7,6 +7,12 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.publish.PublicationContainer
 import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.publish.maven.MavenPom
+import org.gradle.api.publish.maven.MavenPomDeveloper
+import org.gradle.api.publish.maven.MavenPomDeveloperSpec
+import org.gradle.api.publish.maven.MavenPomLicense
+import org.gradle.api.publish.maven.MavenPomLicenseSpec
+import org.gradle.api.publish.maven.MavenPomScm
 import org.gradle.api.publish.maven.MavenPublication
 
 class ReleasePlugin implements Plugin<Project> {
@@ -52,6 +58,38 @@ class ReleasePlugin implements Plugin<Project> {
             publication.groupId = groupId
             publication.artifactId = artifactId
             publication.version = version
+
+            publication.pom { MavenPom pom ->
+                if (extension.licences != null && extension.licenceUrls != null) {
+                    pom.licenses { MavenPomLicenseSpec pomLicenseSpec ->
+                        // take only the 1st for now
+                        pomLicenseSpec.license { MavenPomLicense pomLicense ->
+                            pomLicense.name.set(extension.licences[0])
+                            pomLicense.url.set(extension.licenceUrls[0])
+                        }
+                    }
+                }
+
+                if (extension.devId != null && extension.devName != null && extension.devEmail != null) {
+                    pom.developers { MavenPomDeveloperSpec pomDeveloperSpec ->
+                        // take only 1 for now
+                        pomDeveloperSpec.developer { MavenPomDeveloper pomDeveloper ->
+                            pomDeveloper.id.set(extension.devId)
+                            pomDeveloper.name.set(extension.devName)
+                            pomDeveloper.email.set(extension.devEmail)
+                        }
+                    }
+                }
+
+                if (extension.scmUrl != null && extension.scmConnection != null && extension.scmDevConnection != null) {
+                    pom.scm { MavenPomScm pomScm ->
+                        pomScm.connection.set(extension.scmConnection)
+                        pomScm.developerConnection.set(extension.scmDevConnection)
+                        pomScm.url.set(extension.scmUrl)
+                    }
+                }
+            }
+
         } as MavenPublication
     }
 }

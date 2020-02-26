@@ -25,7 +25,12 @@ class PublishExtension {
 
     Map<String, String> versionAttributes = [:]
 
+    /**
+     * used by bintray and to generate licenses on generated pom
+     * licences and licences should have the same size to match values
+     */
     String[] licences = ['Apache-2.0']
+    String[] licenceUrls = ['https://www.apache.org/licenses/LICENSE-2.0']
 
     String uploadName = ''
 
@@ -54,6 +59,21 @@ class PublishExtension {
     String mavenCentralPassword = ''
 
     String[] publications
+
+    /**
+     * Optional configuration for developers.developer on generated pom
+     */
+    String devId = ''
+    String devName = ''
+    String devEmail = ''
+
+    /**
+     * Optional configuration for scm on generated pom
+     */
+    String scmConnection = ''
+    String scmDevConnection = ''
+    String scmUrl = ''
+
 
     /**
      * Validate all mandatory properties for this extension.
