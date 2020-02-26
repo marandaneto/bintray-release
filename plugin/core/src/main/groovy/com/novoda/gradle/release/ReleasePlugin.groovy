@@ -60,6 +60,16 @@ class ReleasePlugin implements Plugin<Project> {
             publication.version = version
 
             publication.pom { MavenPom pom ->
+                if (!extension.uploadName.isEmpty()) {
+                    pom.name.set(extension.uploadName)
+                }
+                if (!extension.desc.isEmpty()) {
+                    pom.description.set(extension.desc)
+                }
+                if (!extension.repository.isEmpty()) {
+                    pom.url.set(extension.repository)
+                }
+
                 if (extension.licences != null && extension.licences.length >= 1 && extension.licenceUrls != null && extension.licenceUrls.length >= 1 ) {
                     pom.licenses { MavenPomLicenseSpec pomLicenseSpec ->
                         // take only the 1st for now
