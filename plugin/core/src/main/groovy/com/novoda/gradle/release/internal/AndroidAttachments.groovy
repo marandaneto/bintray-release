@@ -63,6 +63,10 @@ class AndroidAttachments extends MavenPublicationAttachments {
     }
 
     private static def androidArchivePath(def variant) {
-        return variant.outputs[0].packageLibrary
+        try {
+            return variant.packageLibraryProvider.get()
+        } catch (Exception ignored) {
+            return variant.outputs[0].packageLibrary
+        }
     }
 }
