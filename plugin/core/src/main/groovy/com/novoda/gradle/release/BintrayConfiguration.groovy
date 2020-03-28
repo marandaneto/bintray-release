@@ -16,6 +16,11 @@ class BintrayConfiguration {
 
         PropertyFinder propertyFinder = new PropertyFinder(project, extension)
 
+        // remove if https://github.com/bintray/gradle-bintray-plugin/issues/313 is fixed
+        if (!extension.autoPublish) {
+            extension.mavenCentralSync = false
+        }
+
         project.bintray {
             user = propertyFinder.bintrayUser
             key = propertyFinder.bintrayKey
