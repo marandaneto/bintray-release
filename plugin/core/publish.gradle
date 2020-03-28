@@ -1,4 +1,4 @@
-version = '1.0.2'
+version = '1.0.3'
 
 apply from: 'build.gradle'
 
@@ -49,8 +49,8 @@ publish {
 //    repoName = project.buildProperties.publish['bintrayRepo'].string
 //    userOrg = project.buildProperties.publish['bintrayOrg'].string
 
-    version = '1.0.2'
-    publishVersion = '1.0.2'
+    version = '1.0.3'
+    publishVersion = '1.0.3'
     userOrg = 'maranda'
 }
 
