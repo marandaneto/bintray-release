@@ -32,6 +32,10 @@ class PropertyFinder {
         getString(project, 'publishVersion', extension.publishVersion)
     }
 
+    def getMavenCentralSync() {
+        getBoolean(project, 'mavenCentralSync', extension.mavenCentralSync)
+    }
+
     def getMavenCentralUser() {
         getString(project, 'mavenCentralUser', extension.mavenCentralUser)
     }

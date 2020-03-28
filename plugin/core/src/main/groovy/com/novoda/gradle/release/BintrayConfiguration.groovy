@@ -49,7 +49,7 @@ class BintrayConfiguration {
                     }
 
                     mavenCentralSync {
-                        sync = extension.mavenCentralSync
+                        sync = propertyFinder.mavenCentralSync
                         user = propertyFinder.mavenCentralUser
                         password = propertyFinder.mavenCentralPassword
                     }
